@@ -19,4 +19,10 @@ class Customer extends Model
     protected $hidden = [
         'user_id'
     ];
+
+
+    public function customerTransations()
+    {
+        return $this->hasMany(CustomerTransation::class);
+    }
 }

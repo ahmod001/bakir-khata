@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customer_transations', function (Blueprint $table) {
             $table->id();
 
-            $table->enum('type', ['credit', 'due'])->index();
+            $table->enum('type', ['CREDIT', 'DUE'])->index();
             $table->text('note');
 
             $table->foreignId('customer_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
