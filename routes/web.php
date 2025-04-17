@@ -17,8 +17,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::post('/logout', 'logout')->name('user.logout')->middleware('auth:sanctum');
 });
 
-Route::apiResource('customers', CustomerController::class)->parameters(['customers' => 'customer:slug'])
-    ->middleware('auth:sanctum');
+Route::apiResource('customers', CustomerController::class)->parameters(['customers' => 'customer:slug'])->middleware('auth:sanctum');
 
 
 Route::apiResource('customer-transition', CustomerTransationController::class)->only('update', 'destroy')->middleware('auth:sanctum');

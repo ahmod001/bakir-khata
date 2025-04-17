@@ -13,7 +13,8 @@ class CustomerObserver
 
     public function saving(Customer $customer): void
     {
-        $customer->slug = generateSlug(Customer::class, $customer->name);
+        $slug = generateSlug(Customer::class, $customer->name);
+        $customer->slug = $slug;
     }
     /**
      * Handle the Customer "updated" event.

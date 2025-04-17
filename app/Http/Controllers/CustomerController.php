@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -13,6 +14,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
+
         return response()->json([
             'message' => 'Customers retrieved successfully',
             'data' => $customers
@@ -24,13 +26,20 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validation = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'nid' => 'nullable|string',
             'address' => 'nullable|string',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $validation->errors()
+            ], 422);
+        }
 
         $customer = new Customer();
         $customer->user_id = $request->user()->id;
@@ -116,7 +125,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-
+        
         return response()->json([
             'message' => 'Customer deleted successfully'
         ]);

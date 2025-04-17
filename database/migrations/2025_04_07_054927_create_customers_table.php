@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
             $table->string('name')->index();
-            $table->string('slug')->index();
+            $table->string('slug')->index()->nullable();
             
             $table->string('phone')->unique()->index();
 
