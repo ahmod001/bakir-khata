@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('hello');
+    return Inertia::render('auth/login');
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
