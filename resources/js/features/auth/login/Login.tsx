@@ -1,25 +1,48 @@
+import AuthBottomText from "@/features/shared/components/AuthBottomText";
 import ActionButton from "@/features/shared/components/form/ActionButton";
 import TextFiled from "@/features/shared/components/form/TextFiled";
 import Title from "@/features/shared/components/Title";
+import ForgotPass from "./components/ForgotPass";
+import { useForm } from "react-hook-form"
+import { emailRules, passwordRules } from "@/features/shared/services/hook-forms/validation-rules";
+
 
 const Login = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm()
+
+    const onSubmit = (data: any) => {
+        console.log(data);
+    }
+
     return (
         <section className=" flex flex-col items-center justify-center h-screen ">
-            <div className=" w-full max-w-sm ">
-                <Title className="mb-3">
-                    Log in
-                </Title>
+            <div className=" w-full max-w-xs mb-8">
+                <Title className="mb-3">Log in</Title>
 
-                <div className="space-y-5 flex flex-col items-center">
-                    <TextFiled label="Email" type="email" />
-                    <TextFiled label="Password" type="password" />
-                    <ActionButton >
-                        Log in
-                    </ActionButton>
-                </div>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center">
+                    <TextFiled
+                        label="Email"
+                        type="email"
+                        {...register("email", emailRules)}
+                        error={errors?.email} />
 
+                    <TextFiled
+                        label="Password"
+                        type="password"
+                        {...register("password", passwordRules)}
+                        error={errors?.password} />
 
+                    {/* <ForgotPass /> */}
+
+                    <ActionButton>Log in</ActionButton>
+                </form>
             </div>
+
+            <AuthBottomText text="Don't have an account?" link={{ label: 'Register', href: '/register' }} />
         </section>
     );
 };

@@ -7,7 +7,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const ActionButton = ({ children, className, ...props }: Props) => {
     return (
-        <button
+        <button type='submit'
             {...props}
             className={`max-w-xs px-6 py-2 text-white font-medium rounded-sm shadow
                         bg-gradient-to-r from-blue-500 to-pink-500 
