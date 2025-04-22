@@ -28,13 +28,13 @@ const Login = () => {
                         label="Email"
                         type="email"
                         {...register("email", emailRules)}
-                        error={errors?.email} />
+                        error={errors?.email?.message} />
 
                     <TextFiled
                         label="Password"
                         type="password"
                         {...register("password", passwordRules)}
-                        error={errors?.password} />
+                        error={errors?.password?.message} />
 
                     {/* <ForgotPass /> */}
 
