@@ -13,3 +13,5 @@ export const passwordRules = {
     },
 }
 
+
+export const requiredRules = { required: "Field is required" }

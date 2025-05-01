@@ -6,8 +6,11 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return Inertia::render('auth/login');
+});
+Route::get('/register', function () {
+    return Inertia::render('auth/register');
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
