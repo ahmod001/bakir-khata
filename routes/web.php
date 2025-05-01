@@ -11,8 +11,8 @@ Route::get('/', function () {
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
-    Route::post('/login', 'login')->name('login')->name('user.login');
-    Route::post('/register', 'register')->name('register')->name('user.register');
+    Route::post('/login', 'login')->name('user.login');
+    Route::post('/register', 'register')->name('user.register');
     Route::get('/', 'index')->name('user')->middleware('auth:sanctum');
     Route::post('/logout', 'logout')->name('user.logout')->middleware('auth:sanctum');
 });

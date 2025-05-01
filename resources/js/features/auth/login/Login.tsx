@@ -5,17 +5,25 @@ import Title from "@/features/shared/components/Title";
 import ForgotPass from "./components/ForgotPass";
 import { useForm } from "react-hook-form"
 import { emailRules, passwordRules } from "@/features/shared/services/hook-forms/validation-rules";
+import useLogin from "./hooks/useLogin";
 
+interface User {
+    email: string;
+    password: string;
+}
+type FormData = User
 
 const Login = () => {
     const {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm()
+    } = useForm<FormData>()
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const { isPending, mutate } = useLogin()
+
+    const onSubmit = (data: FormData) => {
+        mutate(data);
     }
 
     return (
@@ -38,7 +46,7 @@ const Login = () => {
 
                     {/* <ForgotPass /> */}
 
-                    <ActionButton>Log in</ActionButton>
+                    <ActionButton disabled={isPending}>Log in</ActionButton>
                 </form>
             </div>
 

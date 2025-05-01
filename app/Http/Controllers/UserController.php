@@ -29,13 +29,20 @@ class UserController extends Controller
                 'errors' => $validation->errors()
             ], 422);
         }
-
+        // Check if the user exists
         $user = User::where('email', $request->email)->first();
-        $isPasswordMatched = Hash::check($request->password, $user->password);
 
-        if (!$user || !$isPasswordMatched) {
+        if (!$user) {
             return response()->json([
-                'message' => 'Invalid credentials'
+                'message' => 'User does not exist'
+            ], 401);
+        }
+
+        // Check if the password matches
+        $isPasswordMatched = Hash::check($request->password, $user->password);
+        if (!$isPasswordMatched) {
+            return response()->json([
+                'message' => 'Password does not match'
             ], 401);
         }
 
@@ -52,7 +59,7 @@ class UserController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'address'=> 'string',
+            'address' => 'string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed',
         ]);
@@ -85,7 +92,7 @@ class UserController extends Controller
 
         if ($user) {
             $user->token()->delete();
-            
+
             return response()->json([
                 'message' => 'Logged out successfully'
             ]);
