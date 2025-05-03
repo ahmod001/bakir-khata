@@ -21,7 +21,7 @@ function handleError(data) {
 }
 
 function handleSuccess(data) {
-    successToast(data?.response?.data?.message)
+    successToast(data?.message)
 }
 
 export default useLogin;

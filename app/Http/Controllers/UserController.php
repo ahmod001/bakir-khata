@@ -51,7 +51,8 @@ class UserController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            'user' => $user
+            'user' => $user,
+            'message' => 'User logged in successfully'
         ]);
     }
 
@@ -60,7 +61,7 @@ class UserController extends Controller
         $validation = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'address' => 'string',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required',
             'password' => 'required|string|confirmed',
         ]);
 
@@ -68,6 +69,14 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $validation->errors()
+            ], 422);
+        }
+
+        // check if the email already exists
+        $existingUser = User::where('email', $request->email)->first();
+        if ($existingUser) {
+            return response()->json([
+                'message' => 'Email is already taken'
             ], 422);
         }
 
@@ -82,7 +91,8 @@ class UserController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            'user' => $user
+            'user' => $user,
+            'message' => 'User registered successfully'
         ]);
     }
 

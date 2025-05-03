@@ -1,11 +1,12 @@
 import React from 'react';
 import { failToast, successToast } from '@/services/Toastify';
 import { useMutation } from '@tanstack/react-query';
+import { register, User } from '../services/api/register';
 
 const useRegister = () => {
     const registerReq = useMutation({
         mutationKey: ['reg'],
-        // mutationFn: (user: User) => login(user),
+        mutationFn: (user: User) => register(user),
         onSuccess: handleSuccess,
         onError: handleError
     })
@@ -20,7 +21,7 @@ function handleError(data) {
 }
 
 function handleSuccess(data) {
-    successToast(data?.response?.data?.message)
+    successToast(data?.message)
 }
 
 export default useRegister;

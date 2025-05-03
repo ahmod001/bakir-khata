@@ -9,7 +9,8 @@ import useRegister from "./hooks/useRegister";
 interface User {
     email: string;
     password: string;
-    full_name: string;
+    password_confirmation: string;
+    name: string;
     address: string;
 }
 type FormData = User
@@ -18,6 +19,7 @@ const Register = () => {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors }
     } = useForm<FormData>()
 
@@ -32,13 +34,13 @@ const Register = () => {
             <div className=" w-full max-w-xs mb-8">
                 <Title className="mb-3">Create an Account</Title>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 flex flex-col items-center">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 flex flex-col items-center">
                     <TextFiled
                         label="Full Name"
                         type="text"
                         autoComplete="name"
-                        {...register("full_name", requiredRules)}
-                        error={errors?.full_name?.message} />
+                        {...register("name", requiredRules)}
+                        error={errors?.name?.message} />
 
                     <TextFiled
                         label="Email"
@@ -53,6 +55,15 @@ const Register = () => {
                         {...register("password", passwordRules)}
                         error={errors?.password?.message} />
 
+                    <TextFiled
+                        label="Confirm Password"
+                        type="password"
+                        {...register("password_confirmation", {
+                            ...passwordRules,
+                            validate: value => value === watch("password") || "Passwords do not match"
+                        })}
+                        error={errors?.password_confirmation?.message}
+                    />
 
                     <TextFiled
                         label="Address"
