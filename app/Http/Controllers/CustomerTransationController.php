@@ -25,7 +25,7 @@ class CustomerTransationController extends Controller
         ]);
     }
 
-    /**
+    /**                                                                                     
      * Store a newly created resource in storage.
      */
     public function store(Customer $customer, Request $request)
