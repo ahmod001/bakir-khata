@@ -1,9 +1,9 @@
-import AuthBottomText from "@/features/shared/components/AuthBottomText";
-import ActionButton from "@/features/shared/components/form/ActionButton";
-import TextFiled from "@/features/shared/components/form/TextFiled";
-import Title from "@/features/shared/components/Title";
+import AuthBottomText from "@/features/auth/shared/components/AuthBottomText";
+import ActionButton from "@/features/auth/shared/components/form/ActionButton";
+import TextFiled from "@/features/auth/shared/components/form/TextFiled";
+import Title from "@/features/auth/shared/components/Title";
 import { useForm } from "react-hook-form"
-import { emailRules, passwordRules, requiredRules } from "@/features/shared/services/hook-forms/validation-rules";
+import { emailRules, passwordRules, requiredRules } from "@/features/auth/shared/services/hook-forms/validation-rules";
 import useRegister from "./hooks/useRegister";
 
 interface User {

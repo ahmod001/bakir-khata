@@ -1,9 +1,9 @@
 
+import HomePage from '@/features/dashboard/home/Home'
+
 const Home = () => {
     return (
-        <div>
-            
-        </div>
+        <HomePage />
     );
 };
 

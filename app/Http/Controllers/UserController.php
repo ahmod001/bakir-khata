@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -12,7 +13,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         return response()->json([
-            'user' => $request->user()
+            'user' => Auth::user()
         ]);
     }
     public function login(Request $request)
@@ -46,11 +47,9 @@ class UserController extends Controller
             ], 401);
         }
 
-        // Create a token for the authenticated user
-        $token = $user->createToken('auth_token')->plainTextToken;
+        Auth::login($user);
 
         return response()->json([
-            'access_token' => $token,
             'user' => $user,
             'message' => 'User logged in successfully'
         ]);
@@ -86,11 +85,9 @@ class UserController extends Controller
             'password' => $request->password,
         ]);
 
-        // Create a token for the newly registered user
-        $token = $user->createToken('auth_token')->plainTextToken;
+        Auth::login($user);
 
         return response()->json([
-            'access_token' => $token,
             'user' => $user,
             'message' => 'User registered successfully'
         ]);
@@ -98,18 +95,10 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        $user = $request->user();
-
-        if ($user) {
-            $user->token()->delete();
-
-            return response()->json([
-                'message' => 'Logged out successfully'
-            ]);
-        }
+        Auth::logout();
 
         return response()->json([
-            'message' => 'User not authenticated'
-        ], 401);
+            'message' => 'User logged out successfully'
+        ]);
     }
 }

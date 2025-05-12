@@ -1,15 +1,20 @@
 <?php
+
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerTransationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /* ---------------------------------- Auth ---------------------------------- */
+
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::post('/login', 'login')->name('user.login');
     Route::post('/register', 'register')->name('user.register');
-    Route::get('/', 'index')->name('user')->middleware('auth:sanctum');
-    Route::post('/logout', 'logout')->name('user.logout')->middleware('auth:sanctum');
+
+    Route::middleware(['verified', 'auth'])->group(function () {
+        Route::get('/', 'index')->name('user');
+        Route::post('/logout', 'logout')->name('user.logout');
+    });
 });
 
 /* -------------------------------- Customer Resource -------------------------------- */
