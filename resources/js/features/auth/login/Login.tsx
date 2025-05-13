@@ -28,29 +28,30 @@ const Login = () => {
 
     return (
         <section className=" flex flex-col items-center justify-center h-screen ">
-            <div className=" w-full max-w-xs mb-8">
-                <Title className="mb-3">Log in</Title>
+            <div className="w-full max-w-xs mb-8">
+                <Title className="mb-3">লগ ইন</Title>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center">
                     <TextFiled
-                        label="Email"
+                        label="ইমেইল"
                         type="email"
                         {...register("email", emailRules)}
                         error={errors?.email?.message} />
 
                     <TextFiled
-                        label="Password"
+                        label="পাসওয়ার্ড"
                         type="password"
                         {...register("password", passwordRules)}
                         error={errors?.password?.message} />
 
                     {/* <ForgotPass /> */}
 
-                    <ActionButton disabled={isPending}>Log in</ActionButton>
+                    <ActionButton disabled={isPending}>চলুন</ActionButton>
                 </form>
             </div>
 
-            <AuthBottomText text="Don't have an account?" link={{ label: 'Register', href: '/register' }} />
+            <AuthBottomText text="আপনার কি কোনো অ্যাকাউন্ট নেই?" link={{ label: 'রেজিস্টার', href: '/register' }} />
+
         </section>
     );
 };

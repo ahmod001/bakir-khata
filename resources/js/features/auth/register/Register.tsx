@@ -32,31 +32,31 @@ const Register = () => {
     return (
         <section className=" flex flex-col items-center justify-center h-screen ">
             <div className=" w-full max-w-xs mb-8">
-                <Title className="mb-3">Create an Account</Title>
+                <Title className="mb-3">নতুন একাউন্ট তৈরি করুন</Title>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 flex flex-col items-center">
                     <TextFiled
-                        label="Full Name"
+                        label="সম্পূর্ণ নাম"
                         type="text"
                         autoComplete="name"
                         {...register("name", requiredRules)}
                         error={errors?.name?.message} />
 
                     <TextFiled
-                        label="Email"
+                        label="ইমেইল"
                         type="email"
                         autoComplete="email"
                         {...register("email", emailRules)}
                         error={errors?.email?.message} />
 
                     <TextFiled
-                        label="Password"
+                        label="পাসওয়ার্ড"
                         type="password"
                         {...register("password", passwordRules)}
                         error={errors?.password?.message} />
 
                     <TextFiled
-                        label="Confirm Password"
+                        label="পাসওয়ার্ড নিশ্চিত করুন"
                         type="password"
                         {...register("password_confirmation", {
                             ...passwordRules,
@@ -66,17 +66,18 @@ const Register = () => {
                     />
 
                     <TextFiled
-                        label="Address"
+                        label="ঠিকানা"
                         type="text"
                         autoComplete="address-level1"
                         {...register("address", requiredRules)}
                         error={errors?.address?.message} />
 
-                    <ActionButton disabled={isPending}>Register</ActionButton>
+                    <ActionButton disabled={isPending}>চলুন</ActionButton>
                 </form>
+
             </div>
 
-            <AuthBottomText text="Already have an account?" link={{ label: 'Log in', href: '/login' }} />
+            <AuthBottomText text="আগে থেকেই অ্যাকাউন্ট আছে?" link={{ label: 'লগ ইন', href: '/login' }} />
         </section>
     );
 };
