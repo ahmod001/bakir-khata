@@ -19,7 +19,7 @@ const links: Link[] = [
 
 const SideMenu = () => {
     return (
-        <Sidebar className='h-screen  bg-gradient-to-r from-blue-500 to-pink-500' >
+        <Sidebar className='h-screen bg-blue-300' >
             <Title>বাকির খাতা</Title>
 
             <Menu >

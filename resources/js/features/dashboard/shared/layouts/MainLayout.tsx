@@ -3,9 +3,11 @@ import SideMenu from '../components/SideMenu';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <main>
+        <main className='flex'>
             <SideMenu />
-            {children}
+            <main className='w-full'>
+                {children}
+            </main>
         </main>
     );
 };
