@@ -2,6 +2,7 @@ import React from 'react';
 import { login, User } from '../services/api/login';
 import { failToast, successToast } from '@/services/Toastify';
 import { useMutation } from '@tanstack/react-query';
+import { router } from '@inertiajs/react';
 
 const useLogin = () => {
     const loginReq = useMutation({
@@ -22,6 +23,8 @@ function handleError(data) {
 
 function handleSuccess(data) {
     successToast(data?.message)
+
+    router.visit("/dashboard")
 }
 
 export default useLogin;

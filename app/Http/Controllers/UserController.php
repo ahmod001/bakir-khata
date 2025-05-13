@@ -16,9 +16,9 @@ class UserController extends Controller
             'user' => Auth::user()
         ]);
     }
+
     public function login(Request $request)
     {
-
         $validation = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -26,16 +26,17 @@ class UserController extends Controller
 
         if ($validation->fails()) {
             return response()->json([
-                'message' => 'Validation error',
+                'message' => 'ভ্যালিডেশন ত্রুটি', 
                 'errors' => $validation->errors()
             ], 422);
         }
+
         // Check if the user exists
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return response()->json([
-                'message' => 'User does not exist'
+                'message' => 'ইউজার খুঁজে পাওয়া যায়নি'
             ], 401);
         }
 
@@ -43,7 +44,7 @@ class UserController extends Controller
         $isPasswordMatched = Hash::check($request->password, $user->password);
         if (!$isPasswordMatched) {
             return response()->json([
-                'message' => 'Password does not match'
+                'message' => 'পাসওয়ার্ড মেলেনি' 
             ], 401);
         }
 
@@ -51,7 +52,7 @@ class UserController extends Controller
 
         return response()->json([
             'user' => $user,
-            'message' => 'User logged in successfully'
+            'message' => 'ইউজার সফলভাবে লগইন হয়েছে' 
         ]);
     }
 
@@ -66,7 +67,7 @@ class UserController extends Controller
 
         if ($validation->fails()) {
             return response()->json([
-                'message' => 'Validation error',
+                'message' => 'ভ্যালিডেশন ত্রুটি', // Validation error
                 'errors' => $validation->errors()
             ], 422);
         }
@@ -75,7 +76,7 @@ class UserController extends Controller
         $existingUser = User::where('email', $request->email)->first();
         if ($existingUser) {
             return response()->json([
-                'message' => 'Email is already taken'
+                'message' => 'এই ইমেইলটি ইতোমধ্যেই ব্যবহৃত হয়েছে' // Email is already taken
             ], 422);
         }
 
@@ -89,7 +90,7 @@ class UserController extends Controller
 
         return response()->json([
             'user' => $user,
-            'message' => 'User registered successfully'
+            'message' => 'ইউজার সফলভাবে রেজিস্টার হয়েছে' 
         ]);
     }
 
@@ -98,7 +99,7 @@ class UserController extends Controller
         Auth::logout();
 
         return response()->json([
-            'message' => 'User logged out successfully'
+            'message' => 'ইউজার সফলভাবে লগআউট হয়েছে' 
         ]);
     }
 }
