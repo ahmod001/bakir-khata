@@ -16,8 +16,10 @@ return new class extends Migration
 
             $table->enum('type', ['CREDIT', 'DUE'])->index();
             $table->text('note');
+            $table->bigInteger('amount')->default(0);
 
             $table->foreignId('customer_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade');
 
             $table->timestamps();
         });

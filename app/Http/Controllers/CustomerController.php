@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
@@ -42,7 +43,6 @@ class CustomerController extends Controller
         }
 
         $customer = new Customer();
-        $customer->user_id = $request->user()->id;
         $customer->name = $request->name;
         $customer->phone = $request->phone;
         $customer->address = $request->address;

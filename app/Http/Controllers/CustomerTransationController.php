@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\CustomerTransation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerTransationController extends Controller
 {
@@ -41,6 +42,7 @@ class CustomerTransationController extends Controller
             'type' => $request->input('type'),
             'note' => $request->input('note'),
             'customer_id' => $customer->id,
+            'user_id' => Auth::id()
         ]);
 
         return response()->json([

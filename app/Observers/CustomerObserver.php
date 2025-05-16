@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerObserver
 {
@@ -15,6 +16,7 @@ class CustomerObserver
     {
         $slug = generateSlug(Customer::class, $customer->name);
         $customer->slug = $slug;
+        $customer->user_id = Auth::id();
     }
     /**
      * Handle the Customer "updated" event.
