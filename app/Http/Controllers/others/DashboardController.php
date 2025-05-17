@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\CustomerTransation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Number;
 
 class DashboardController extends Controller
 {
@@ -21,10 +22,12 @@ class DashboardController extends Controller
             ->first();
 
         $statistics = [
-            'total_customers' => $total_customers,
-            'total_due' => $totals->total_due ?? 0,
-            'total_credit' => $totals->total_credit ?? 0,
-            'total_balance' => ($totals->total_credit ?? 0) - ($totals->total_due ?? 0),
+            'total_customers' => Number::abbreviate($total_customers, 1),
+            'total_due' => Number::format($totals->total_due ?? 0, 2),
+            'total_credit' => Number::format($totals->total_credit ?? 0, 2),
+            'total_balance' => Number::format(($totals->total_credit ?? 0) - ($totals->total_due ?? 0),
+                2
+            ),
         ];
 
         return response()->json([
