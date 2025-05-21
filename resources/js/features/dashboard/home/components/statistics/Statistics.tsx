@@ -6,7 +6,7 @@ import StatisticsCardSkeletonGroup from './StatisticsCardSkeletonGroup';
 
 
 const Statistics = () => {
-    const classList = "grid grid-cols-3 gap-5 mx-5 mt-10"
+    const classList = "grid grid-cols-3 gap-5 mt-10"
 
 
     const { data, isPending } = useQuery({
