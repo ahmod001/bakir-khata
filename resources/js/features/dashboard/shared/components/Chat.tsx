@@ -35,6 +35,6 @@ export default function Chart<T extends string>({
 }
 
 const Title = ({ children }: { children?: React.ReactNode }) => (
-    <h2 className="text-xl font-semibold text-gray-700 md:text-2xl mb-2.5">{children}</h2>
+    <h2 className="text-xl font-semibold text-gray-700 md:text-2xl mb-3">{children}</h2>
 );
 Title.displayName = 'Title';

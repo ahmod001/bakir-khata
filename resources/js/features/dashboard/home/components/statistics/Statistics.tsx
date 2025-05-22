@@ -4,7 +4,6 @@ import StatisticCardGroup from './StatisticCardGroup';
 import StatisticsCardSkeletonGroup from './StatisticsCardSkeletonGroup';
 
 
-
 const Statistics = () => {
     const classList = "grid grid-cols-3 gap-5 mt-10"
 
