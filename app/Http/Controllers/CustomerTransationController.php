@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\CustomerTransation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CustomerTransationController extends Controller
 {
@@ -95,5 +96,49 @@ class CustomerTransationController extends Controller
         return response()->json([
             'message' => 'Customer transaction deleted successfully',
         ]);
+    }
+
+
+
+
+    public function getDueHistory()
+    {
+        $year = now()->year;
+
+
+        $rawData = CustomerTransation::selectRaw('MONTH(created_at) as month, SUM(amount) as due')
+            ->where('type', 'DUE')
+            ->whereYear('created_at', $year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('due', 'month')
+            ->toArray();
+
+
+        // Formate the data
+        $months = [
+            1 => 'Jan',
+            2 => 'Feb',
+            3 => 'Mar',
+            4 => 'Apr',
+            5 => 'May',
+            6 => 'Jun',
+            7 => 'Jul',
+            8 => 'Aug',
+            9 => 'Sep',
+            10 => 'Oct',
+            11 => 'Nov',
+            12 => 'Dec',
+        ];
+
+        $finalData = [];
+
+        foreach ($months as $num => $name) {
+            $finalData[] = [
+                'name' => $name,
+                'due' => $rawData[$num] ?? 0,
+            ];
+        }
+
+        return $finalData;
     }
 }

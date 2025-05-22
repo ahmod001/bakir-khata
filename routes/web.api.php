@@ -25,10 +25,14 @@ Route::apiResource('customers', CustomerController::class)->parameters(['custome
 
 /* -------------------------- Customer Transaction -------------------------- */
 Route::apiResource('customer-transition', CustomerTransationController::class)->only('update', 'destroy')->middleware(['auth', 'verified']);
-Route::controller(CustomerTransationController::class)->prefix('customers')->group(function () {
+
+Route::controller(CustomerTransationController::class)->prefix('customers')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/{customer:slug}/transition', 'index');
     Route::post('/{customer:slug}/transition', 'store');
     Route::get('/{customer:slug}/transition/{customerTransation}', 'show');
+
+
+    Route::get('/transition/due-history', 'getDueHistory');
 });
 
 
