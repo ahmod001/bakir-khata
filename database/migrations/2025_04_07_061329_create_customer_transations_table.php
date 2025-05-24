@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->enum('type', ['CREDIT', 'DUE'])->index();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->bigInteger('amount')->default(0);
 
             $table->foreignId('customer_id')->constrained()->onDelete('restrict')->onUpdate('cascade');

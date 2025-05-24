@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use App\Observers\CustomerObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Customer extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
