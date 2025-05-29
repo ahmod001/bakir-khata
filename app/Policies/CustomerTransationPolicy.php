@@ -50,7 +50,7 @@ class CustomerTransationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, CustomerTransation $customerTransation): bool
+    public function delete(User $user, CustomerTransation $customerTransation)
     {
         if ($user->id === $customerTransation->user_id) {
             return Response::allow();
