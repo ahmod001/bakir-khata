@@ -68,6 +68,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
+        $this->authorize('view', $customer);
+
         return response()->json([
             'message' => 'Customer retrieved successfully',
             'data' => $customer
@@ -79,6 +81,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
+        $this->authorize('update', $customer);
+
+
         $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'phone' => 'sometimes|required|string|max:15',
@@ -124,8 +129,11 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete();
+
+        $this->authorize('delete', $customer);
         
+        $customer->delete();
+
         return response()->json([
             'message' => 'Customer deleted successfully'
         ]);

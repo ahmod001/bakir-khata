@@ -7,6 +7,7 @@ use App\Models\CustomerTransation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerTransationController extends Controller
 {
@@ -15,6 +16,8 @@ class CustomerTransationController extends Controller
      */
     public function index(Customer $customer)
     {
+        $this->authorize('view', $customer);
+
         $transition = $customer->load('customerTransations');
 
         return response()->json([
@@ -32,6 +35,8 @@ class CustomerTransationController extends Controller
      */
     public function store(Customer $customer, Request $request)
     {
+        $this->authorize('show', $customer);
+
         $request->validate([
             'amount' => 'required|numeric',
             'type' => 'required|in:CREDIT,DUE',
@@ -57,7 +62,7 @@ class CustomerTransationController extends Controller
     public function show(Customer $customer, CustomerTransation $customerTransation)
     {
         return response()->json([
-            'status' => true,
+            'status' => 'success',
             'message' => 'Customer transaction retrieved successfully',
             'data' => $customerTransation
         ]);
@@ -69,11 +74,21 @@ class CustomerTransationController extends Controller
     public function update(Request $request, CustomerTransation $customerTransation)
 
     {
-        $request->validate([
+
+        $this->authorize('update', $customerTransation);
+
+        $validation = Validator::make($request->all(), [
             'amount' => 'required|numeric',
             'type' => 'required|in:CREDIT,DUE',
             'note' => 'nullable|string|max:255',
         ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $validation->errors()
+            ], 422);
+        }
 
 
         $customerTransation->update([
@@ -92,6 +107,9 @@ class CustomerTransationController extends Controller
      */
     public function destroy(CustomerTransation $customerTransation)
     {
+
+        $this->authorize('delete', $customerTransation);
+
         $customerTransation->delete();
         return response()->json([
             'message' => 'Customer transaction deleted successfully',

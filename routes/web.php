@@ -4,12 +4,19 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 /* ---------------------------------- Auth ---------------------------------- */
-Route::get('/login', function () {
-    return Inertia::render('auth/login');
-})->name('login');
-Route::get('/register', function () {
-    return Inertia::render('auth/register');
+
+Route::middleware(['guest'])->group(function () {
+
+    Route::get('/login', function () {
+        return Inertia::render('auth/login');
+    })->name('login');
+
+
+    Route::get('/register', function () {
+        return Inertia::render('auth/register');
+    });
 });
+
 
 
 /* -------------------------------- Dashboard ------------------------------- */

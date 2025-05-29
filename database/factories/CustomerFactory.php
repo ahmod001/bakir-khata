@@ -18,10 +18,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fn() => User::factory()->create()->id,
             'name' => fake()->name(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
+            'user_id' => User::factory()->create()->id,
         ];
     }
 }

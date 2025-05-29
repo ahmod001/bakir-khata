@@ -21,8 +21,8 @@ class CustomerTransationFactory extends Factory
         return [
             'amount' => fake()->numberBetween(100, 10000),
             'type' => fake()->randomElement(['CREDIT', 'DUE']),
-            'customer_id' => fn() => Customer::factory()->create()->id,
-            'user_id' => fn() => User::factory()->create()->id()
+            'user_id' => User::factory()->create()->id,
+            'customer_id' => Customer::factory()->create()->id,
         ];
     }
 }

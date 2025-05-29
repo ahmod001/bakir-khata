@@ -15,6 +15,7 @@ class CustomerTransation extends Model
         'type',
         'note',
         'customer_id',
+        'user_id'
     ];
 
 
